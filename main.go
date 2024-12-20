@@ -16,9 +16,20 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, htmlString)
 }
 
+func pathHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.URL.Path {
+	case "/":
+		homeHandler(w, r)
+	case "/contact":
+		contactHandler(w, r)
+	default:
+		fmt.Fprint(w, http.StatusNotFound)
+	}
+}
+
 func main() {
-	http.HandleFunc("/", homeHandler)
-	http.HandleFunc("/contact", contactHandler)
+	http.HandleFunc("/", pathHandler)
+	// http.HandleFunc("/contact", contactHandler)
 	fmt.Println("Starting the server on :3000...")
 	http.ListenAndServe(":3000", nil)
 }
