@@ -23,7 +23,7 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 	case "/contact":
 		contactHandler(w, r)
 	default:
-		fmt.Fprint(w, http.StatusNotFound)
+		http.NotFound(w, r)
 	}
 }
 
